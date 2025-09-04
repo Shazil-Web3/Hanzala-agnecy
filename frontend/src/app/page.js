@@ -139,7 +139,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              Transform your vision into reality with our all-in-one business solutions. From seamless LLC and Wise formation to stunning websites and powerful marketing, we've got you covered.
+              Transform your vision into reality with our all-in-one business solutions. From seamless LLC and Wise formation to stunning websites and powerful marketing, we&apos;ve got you covered.
             </p>
           </motion.div>
 
