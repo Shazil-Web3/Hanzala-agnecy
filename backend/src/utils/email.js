@@ -1,52 +1,59 @@
-// Email service utility
-// This is a placeholder implementation
-// In production, you would integrate with services like:
-// - SendGrid
-// - Mailgun
-// - AWS SES
-// - Nodemailer with SMTP
+const nodemailer = require('nodemailer');
+
+// Create transporter for Gmail
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_APP_PASSWORD // Use App Password for Gmail
+    }
+  });
+};
 
 const sendLeadNotification = async (lead) => {
   try {
-    console.log('📧 Email notification would be sent for lead:', {
-      id: lead._id,
-      name: lead.name,
-      email: lead.email,
-      service: lead.service
-    });
-
-    // TODO: Implement actual email sending logic
-    // Example with Nodemailer:
-    /*
-    const nodemailer = require('nodemailer');
+    const transporter = createTransporter();
     
-    const transporter = nodemailer.createTransporter({
-      service: 'gmail', // or your email service
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.ADMIN_EMAIL,
-      subject: `New Lead: ${lead.name}`,
+      subject: `New Lead: ${lead.name} - ${lead.company || 'No Company'}`,
       html: `
-        <h2>New Lead Received</h2>
-        <p><strong>Name:</strong> ${lead.name}</p>
-        <p><strong>Email:</strong> ${lead.email}</p>
-        <p><strong>Phone:</strong> ${lead.phone || 'Not provided'}</p>
-        <p><strong>Service:</strong> ${lead.service}</p>
-        <p><strong>Message:</strong> ${lead.message || 'No message'}</p>
-        <p><strong>Date:</strong> ${lead.createdAt}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">New Lead Received</h2>
+          
+          <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #4CAF50; margin-top: 0;">Contact Information</h3>
+            <p><strong>Name:</strong> ${lead.name}</p>
+            <p><strong>Email:</strong> ${lead.email}</p>
+            <p><strong>Phone:</strong> ${lead.countryCode} ${lead.phone}</p>
+            <p><strong>Company:</strong> ${lead.company || 'Not provided'}</p>
+          </div>
+          
+          <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #2e7d32; margin-top: 0;">Message</h3>
+            <p style="white-space: pre-wrap;">${lead.message}</p>
+          </div>
+          
+          <div style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Service Interest:</strong> ${lead.service}</p>
+            <p><strong>Status:</strong> ${lead.status}</p>
+            <p><strong>Date:</strong> ${new Date(lead.createdAt).toLocaleString()}</p>
+            <p><strong>Lead ID:</strong> ${lead._id}</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #4CAF50; color: white; border-radius: 8px;">
+            <p style="margin: 0; font-weight: bold;">Please respond to this lead within 24 hours for best results!</p>
+          </div>
+        </div>
       `
     };
 
-    await transporter.sendMail(mailOptions);
-    */
-
-    return { success: true, message: 'Email sent successfully' };
+    const result = await transporter.sendMail(mailOptions);
+    console.log('📧 Lead notification email sent successfully:', result.messageId);
+    
+    return { success: true, message: 'Email sent successfully', messageId: result.messageId };
   } catch (error) {
     console.error('Email sending error:', error);
     throw error;
@@ -55,25 +62,43 @@ const sendLeadNotification = async (lead) => {
 
 const sendConfirmationEmail = async (lead) => {
   try {
-    console.log('📧 Confirmation email would be sent to:', lead.email);
-
-    // TODO: Implement confirmation email logic
-    /*
+    const transporter = createTransporter();
+    
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: lead.email,
-      subject: 'Thank you for your interest!',
+      subject: 'Thank you for your interest! - Hanzala Project',
       html: `
-        <h2>Thank you, ${lead.name}!</h2>
-        <p>We have received your inquiry and will get back to you soon.</p>
-        <p>Best regards,<br>Hanzala Project Team</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #4CAF50; text-align: center;">Thank you, ${lead.name}!</h2>
+          
+          <div style="background-color: #f9f9f9; padding: 30px; border-radius: 8px; margin: 20px 0;">
+            <p style="font-size: 16px; line-height: 1.6;">We have received your inquiry and are excited to learn more about your project. Our team will review your message and get back to you within 24 hours.</p>
+            
+            <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #2e7d32; margin-top: 0;">What happens next?</h3>
+              <ul style="color: #333;">
+                <li>We'll review your requirements</li>
+                <li>Our team will prepare a customized proposal</li>
+                <li>We'll schedule a call to discuss your project in detail</li>
+                <li>We'll provide you with a timeline and pricing</li>
+              </ul>
+            </div>
+            
+            <p style="font-size: 14px; color: #666;">If you have any urgent questions, feel free to reach out to us directly.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #4CAF50; color: white; border-radius: 8px;">
+            <p style="margin: 0; font-weight: bold;">Best regards,<br>Hanzala Project Team</p>
+          </div>
+        </div>
       `
     };
 
-    await transporter.sendMail(mailOptions);
-    */
-
-    return { success: true, message: 'Confirmation email sent' };
+    const result = await transporter.sendMail(mailOptions);
+    console.log('📧 Confirmation email sent successfully:', result.messageId);
+    
+    return { success: true, message: 'Confirmation email sent', messageId: result.messageId };
   } catch (error) {
     console.error('Confirmation email error:', error);
     throw error;

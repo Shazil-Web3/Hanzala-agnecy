@@ -14,13 +14,26 @@ const leadSchema = new mongoose.Schema({
     lowercase: true,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
   },
+  countryCode: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 5
+  },
   phone: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 20
   },
+  company: {
+    type: String,
+    trim: true,
+    maxlength: 100
+  },
   message: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 1000
   },

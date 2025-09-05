@@ -18,10 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hanzala-project', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hanzala-project')
 .then(() => {
   console.log('Connected to MongoDB');
 })
@@ -50,8 +47,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
+// 404 handler - must be last
+app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 

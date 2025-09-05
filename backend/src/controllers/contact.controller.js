@@ -4,23 +4,33 @@ const emailService = require('../utils/email');
 // Create a new lead
 const createLead = async (req, res) => {
   try {
-    const { name, email, phone, message, company } = req.body;
+    const { name, email, countryCode, phone, message, company } = req.body;
 
     // Validate required fields
-    if (!name || !email) {
+    if (!name || !email || !countryCode || !phone || !message) {
       return res.status(400).json({
         success: false,
-        message: 'Name and email are required'
+        message: 'Name, email, country code, phone, and message are required'
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid email address'
       });
     }
 
     // Create new lead
     const lead = new Lead({
-      name,
-      email,
-      phone: phone || '',
-      message: message || '',
-      company: company || '',
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      countryCode: countryCode.trim(),
+      phone: phone.trim(),
+      message: message.trim(),
+      company: company ? company.trim() : '',
       service: 'general',
       status: 'new',
       createdAt: new Date()
@@ -29,27 +39,55 @@ const createLead = async (req, res) => {
     // Save to database
     const savedLead = await lead.save();
 
-    // Send email notification (placeholder for now)
+    // Send email notifications
+    let emailResults = { admin: null, user: null };
+    
     try {
-      await emailService.sendLeadNotification(savedLead);
+      // Send notification to admin
+      emailResults.admin = await emailService.sendLeadNotification(savedLead);
+      console.log('✅ Admin notification sent');
     } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Don't fail the request if email fails
+      console.error('❌ Admin email sending failed:', emailError);
+      // Don't fail the request if admin email fails
+    }
+
+    try {
+      // Send confirmation to user
+      emailResults.user = await emailService.sendConfirmationEmail(savedLead);
+      console.log('✅ User confirmation sent');
+    } catch (emailError) {
+      console.error('❌ User confirmation email failed:', emailError);
+      // Don't fail the request if user email fails
     }
 
     res.status(201).json({
       success: true,
-      message: 'Lead created successfully',
+      message: 'Thank you! Your message has been sent successfully. We will get back to you within 24 hours.',
       data: {
         id: savedLead._id,
         name: savedLead.name,
         email: savedLead.email,
-        status: savedLead.status
+        status: savedLead.status,
+        emailsSent: {
+          admin: emailResults.admin ? true : false,
+          user: emailResults.user ? true : false
+        }
       }
     });
 
   } catch (error) {
     console.error('Error creating lead:', error);
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: 'Failed to create lead',

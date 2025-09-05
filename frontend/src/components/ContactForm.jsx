@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -20,6 +21,7 @@ const contactSchema = z.object({
 
 export const ContactForm = () => {
   const { toast } = useToast();
+  const [showSuccess, setShowSuccess] = useState(false);
   const {
     register,
     handleSubmit,
@@ -31,26 +33,79 @@ export const ContactForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      toast({
-        title: "Thanks! We'll contact you soon.",
-        duration: 5000,
+      const response = await fetch('http://localhost:4000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
 
-      reset();
+      const result = await response.json();
+
+      if (response.ok) {
+        // Show success notification
+        setShowSuccess(true);
+        
+        // Hide success notification after 10 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 10000);
+
+        toast({
+          title: "Message sent successfully!",
+          description: result.message,
+          duration: 5000,
+        });
+
+        reset();
+      } else {
+        throw new Error(result.message || 'Failed to send message');
+      }
     } catch (error) {
+      console.error('Error submitting form:', error);
       toast({
         title: "Something went wrong",
-        description: "Please try again later.",
+        description: error.message || "Please try again later.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <div className="space-y-6">
+      {/* Success Notification */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="w-full"
+          >
+            <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center justify-center space-x-2 animate-pulse">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              <span className="font-semibold text-lg">Message sent successfully!</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Name *</label>
@@ -148,6 +203,7 @@ export const ContactForm = () => {
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
-    </form>
+      </form>
+    </div>
   );
 };
