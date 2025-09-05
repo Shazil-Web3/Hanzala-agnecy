@@ -11,29 +11,18 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
-import { ContactForm } from "@/components/ContactForm";
+import { ContactSection } from "@/components/ContactSection";
 
 const services = [
   {
-    icon: Building,
-    title: "LLC Formation",
-    description: "Complete LLC setup and registration services to get your business legally established.",
+    icon: TrendingUp,
+    title: "Marketing",
+    description: "Multi-platform digital marketing campaigns that deliver measurable results.",
     features: [
-      "State filing & documentation",
-      "EIN tax ID number",
-      "Operating agreement drafting",
-      "Registered agent service"
-    ]
-  },
-  {
-    icon: Users,
-    title: "Wise Formation",
-    description: "Expert business formation consulting to choose the right structure for your needs.",
-    features: [
-      "Business structure analysis",
-      "Tax optimization planning",
-      "Compliance guidance",
-      "Ongoing support"
+      "Google & Meta Ads",
+      "Social media marketing",
+      "Content creation",
+      "Analytics & reporting"
     ]
   },
   {
@@ -48,19 +37,30 @@ const services = [
     ]
   },
   {
-    icon: TrendingUp,
-    title: "Marketing",
-    description: "Multi-platform digital marketing campaigns that deliver measurable results.",
+    icon: Users,
+    title: "LLC Formation",
+    description: "Complete LLC setup and registration services to get your business legally established.",
     features: [
-      "Google & Meta Ads",
-      "Social media marketing",
-      "Content creation",
-      "Analytics & reporting"
+      "State filing & documentation",
+      "EIN tax ID number",
+      "Operating agreement drafting",
+      "Payment gateway generation"
+    ]
+  },
+  {
+    icon: Building,
+    title: "Payment Gateways Formation",
+    description: "We can develop payment gateways for you to process online transactions securely.",
+    features: [
+      "Wise Formation",
+      "PayPal Formation", 
+      "Payoneer Formation",
+      "Stripe Formation"
     ]
   },
   {
     icon: ArrowUp,
-    title: "Upside Formation",
+    title: "LTD Formation",
     description: "Advanced business strategies to scale and optimize your growing company.",
     features: [
       "Growth strategy planning",
@@ -135,11 +135,11 @@ export default function Home() {
               </span>
               <br />
               <span className="text-3xl md:text-4xl font-medium text-muted-foreground">
-                LLC Formation • Wise Setup • Websites • Marketing
+              Marketing  • Websites • Payament Gateway Formations
               </span>
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              Transform your vision into reality with our all-in-one business solutions. From seamless LLC and Wise formation to stunning websites and powerful marketing, we&apos;ve got you covered.
+              Transform your vision into reality with our all-in-one business solutions. From marketing to websites to payment gateway formations, we've got you covered.
             </p>
           </motion.div>
 
@@ -284,17 +284,12 @@ export default function Home() {
 
                     {Array.isArray(service.features) && service.features.length > 0 && (
                       <ul className="space-y-2 mb-6">
-                        {service.features.slice(0, 3).map((feature, idx) => (
+                        {service.features.map((feature, idx) => (
                           <li key={idx} className="text-sm text-muted-foreground flex items-start">
                             <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-2 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
-                        {service.features.length > 3 && (
-                          <li className="text-sm text-primary font-medium">
-                            +{service.features.length - 3} more features
-                          </li>
-                        )}
                       </ul>
                     )}
 
@@ -373,7 +368,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ContactForm />
+      <ContactSection />
     </div>
   );
 }

@@ -138,9 +138,9 @@ const benefits = [
     description: "Certified specialists across all major advertising platforms."
   },
   {
-    icon: BarChart,
-    title: "Data-Driven",
-    description: "Every campaign backed by comprehensive analytics and optimization."
+    icon: Users,
+    title: "Expert Team",
+    description: "Dedicated professionals with deep expertise in digital marketing and advertising."
   },
   {
     icon: Eye,
@@ -152,7 +152,7 @@ const benefits = [
 export default function Marketing() {
   const handleContactClick = () => {
     if (typeof window !== "undefined") {
-      window.location.href = "/#contact";
+      window.location.href = "/contact";
     }
   };
 

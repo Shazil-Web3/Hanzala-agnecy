@@ -16,43 +16,36 @@ import { Button } from "@/components/ui/button";
 const plans = [
   {
     name: "Basic",
-    price: "$999",
-    duration: "one-time",
     description: "Perfect for small businesses just getting started online.",
     features: [
-      "5-page custom website",
+      "3-page custom website",
       "Mobile responsive design",
       "Basic SEO optimization", 
       "Contact form integration",
       "Social media links",
-      "1 month free hosting",
-      "Basic analytics setup"
+      "Basic admin panel setup",
+      "API integration"
     ],
     popular: false
   },
   {
     name: "Standard",
-    price: "$1,999",
-    duration: "one-time", 
     description: "Ideal for growing businesses that need more functionality.",
     features: [
-      "10-page custom website",
+      "6-page custom website",
       "Advanced mobile optimization",
       "Complete SEO package",
-      "E-commerce functionality",
-      "Blog/news section",
       "Advanced forms & automation",
-      "3 months free hosting",
-      "Enhanced analytics",
+      "1 month free hosting",
+      "Custom admin panel",
+      "API management",
       "Social media integration",
-      "Basic maintenance (3 months)"
+      "Security checkup & implementation"
     ],
     popular: true
   },
   {
     name: "Premium", 
-    price: "$3,999",
-    duration: "one-time",
     description: "For established businesses requiring enterprise-level features.",
     features: [
       "Unlimited pages",
@@ -61,12 +54,14 @@ const plans = [
       "Multi-language support",
       "Custom CMS development",
       "Advanced SEO & performance",
-      "6 months free hosting",
-      "Comprehensive analytics",
+      "2 months free hosting",
+      "Comprehensive admin panel",
       "Priority support",
-      "6 months maintenance included",
-      "Training & documentation",
-      "Third-party integrations"
+      "1 month maintenance included",
+      "Third-party integrations",
+      "Advanced security features",
+      "Complex database integration",
+      "Custom API development"
     ],
     popular: false
   }
@@ -90,8 +85,8 @@ const features = [
   },
   {
     icon: BarChart,
-    title: "Analytics Ready",
-    description: "Comprehensive tracking and analytics to measure your website's performance."
+    title: "Custom Admin Panel",
+    description: "User-friendly admin panel to manage your website content and settings easily."
   },
   {
     icon: Zap,
@@ -112,29 +107,37 @@ const faqs = [
   },
   {
     question: "Do you provide ongoing maintenance?",
-    answer: "Yes! All plans include initial maintenance periods, and we offer ongoing maintenance packages to keep your site updated, secure, and performing optimally."
+    answer: "For maintenance, you can contact us directly. We offer maintenance for Premium websites, but for Standard or Basic plans, we can discuss the cost as it's not included in the plan."
   },
   {
-    question: "Can I update the website content myself?",
-    answer: "Absolutely. We build all websites with user-friendly content management systems, and provide training so you can easily update text, images, and pages."
+    question: "Which languages are used for developing websites?",
+    answer: "No WordPress or any other services are used. We make custom websites through custom languages. We use modern technologies including React, Next.js, Node.js, and two types of databases: SQL and NoSQL. You can contact us to discuss the specific languages and technologies you want based on the type of website you want to make."
   },
   {
     question: "What if I need changes after the site is complete?",
-    answer: "We offer revision rounds during development, and post-launch support. Additional changes can be handled through our maintenance packages or hourly rates."
+    answer: "Post-launch support is only available in Premium plans. For Standard or Basic plans, changes cannot be done after the website is deployed."
   },
   {
     question: "Do you help with hosting and domain setup?",
-    answer: "Yes, we can handle all technical aspects including domain registration, hosting setup, and ongoing technical management if needed."
+    answer: "You can contact us for discussion of hosting and domain. For Premium and Standard plans, we provide hosting. For domain, you can contact us if you want to buy a domain."
   }
 ];
 
 export default function WebsiteCreation() {
   const handleContactClick = () => {
-    window.location.href = "/#contact";
+    window.location.href = "/contact";
   };
 
   return (
     <div className="pt-20">
+      {/* Background Orbs */}
+      <div className="orb-1"></div>
+      <div className="orb-2"></div>
+      <div className="orb-3"></div>
+      <div className="orb-4"></div>
+      <div className="orb-5"></div>
+      <div className="orb-6"></div>
+      
       {/* Hero Section */}
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto text-center">
@@ -259,12 +262,6 @@ export default function WebsiteCreation() {
                 
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                  <div className="text-4xl font-bold gradient-text mb-2">
-                    {plan.price}
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {plan.duration}
-                  </p>
                   <p className="text-muted-foreground">
                     {plan.description}
                   </p>
@@ -289,7 +286,7 @@ export default function WebsiteCreation() {
                       : "bg-accent text-accent-foreground hover:bg-accent/90"
                   }`}
                 >
-                  Get Started
+                  Get Price
                 </Button>
               </motion.div>
             ))}

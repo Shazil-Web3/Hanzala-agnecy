@@ -16,11 +16,11 @@ const Footer = () => {
   };
 
   const services = [
-    { name: 'LLC Formation', href: '/', icon: Shield },
-    { name: 'Wise Formation', href: '/', icon: Target },
+    { name: 'Marketing', href: '/marketing', icon: TrendingUp },
     { name: 'Website Creation', href: '/website-creation', icon: Globe },
-    { name: 'Digital Marketing', href: '/marketing', icon: TrendingUp },
-    { name: 'Upside Formation', href: '/', icon: Zap },
+    { name: 'LLC Formation', href: '/', icon: Shield },
+    { name: 'LTD Formation', href: '/', icon: Target },
+    { name: 'Payment Gateways Formation', href: '/', icon: Zap },
   ];
 
   const quickLinks = [
@@ -60,16 +60,13 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors">
                   <Mail className="w-4 h-4 text-blue-400" />
-                  <span>hello@wiseformation.com</span>
+                  <span>hanzwellagency@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors">
                   <Phone className="w-4 h-4 text-emerald-400" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+447737297721</span>
                 </div>
-                <div className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors">
-                  <MapPin className="w-4 h-4 text-red-400" />
-                  <span>New York, NY 10001</span>
-                </div>
+               
               </div>
               {/* (CTA button removed) */}
             </motion.div>

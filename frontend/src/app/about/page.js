@@ -42,16 +42,10 @@ const values = [
 
 const services = [
   {
-    icon: Award,
-    title: "LLC Formation",
+    icon: TrendingUp,
+    title: "Marketing",
     description:
-      "Complete legal entity setup with all required documentation and compliance.",
-  },
-  {
-    icon: Users,
-    title: "Wise Formation",
-    description:
-      "Strategic business structure consulting tailored to your specific needs.",
+      "Multi-platform campaigns designed to maximize your ROI and growth.",
   },
   {
     icon: Globe,
@@ -59,30 +53,36 @@ const services = [
     description: "Professional web presence that converts visitors into customers.",
   },
   {
-    icon: TrendingUp,
-    title: "Marketing",
+    icon: Award,
+    title: "LLC Formation",
     description:
-      "Multi-platform campaigns designed to maximize your ROI and growth.",
+      "Complete legal entity setup with all required documentation and compliance.",
   },
   {
     icon: Target,
-    title: "Upside Formation",
+    title: "LTD Formation",
     description:
       "Advanced scaling strategies for established businesses ready to grow.",
+  },
+  {
+    icon: Users,
+    title: "Payment Gateways Formation",
+    description:
+      "Strategic payment gateway development tailored to your specific business needs.",
   },
 ];
 
 const achievements = [
   { number: "500+", label: "Businesses Formed" },
   { number: "98%", label: "Client Satisfaction" },
-  { number: "$2M+", label: "Client Revenue Generated" },
+  { number: "$100k+", label: "Client Revenue Generated" },
   { number: "24/7", label: "Support Available" },
 ];
 
 export default function About() {
   const handleGetStarted = () => {
     if (typeof window !== "undefined") {
-      window.location.href = "/#contact";
+      window.location.href = "/contact";
     }
   };
 

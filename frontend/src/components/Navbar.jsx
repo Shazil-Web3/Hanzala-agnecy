@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 
 const navigationItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Website", href: "/website-creation" },
   { name: "Marketing", href: "/marketing" },
+  { name: "Website", href: "/website-creation" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
