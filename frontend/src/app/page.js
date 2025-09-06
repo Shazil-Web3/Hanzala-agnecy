@@ -122,7 +122,17 @@ export default function Home() {
   }))];
   
   // Calculate total slides based on combined testimonials
+  // Always show 2 testimonials per slide for consistent 2x2 grid
   const totalSlides = Math.ceil(allTestimonials.length / 2);
+  
+  // Debug logging
+  console.log('🎯 Layout Debug:', {
+    staticTestimonials: testimonials.length,
+    dynamicReviews: reviews.length,
+    allTestimonials: allTestimonials.length,
+    totalSlides,
+    reviews
+  });
   
   const handleGetStarted = () => {
     if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
@@ -149,6 +159,10 @@ export default function Home() {
       
       if (response.ok) {
         setReviews(result.data || []);
+        console.log('📊 Reviews loaded:', {
+          count: result.data?.length || 0,
+          reviews: result.data || []
+        });
       } else {
         console.error('Failed to fetch reviews:', result.message);
       }
@@ -434,7 +448,7 @@ export default function Home() {
                       key={slideIndex}
                       className="w-full flex-shrink-0"
                     >
-                      <div className={`grid gap-8 ${isLastSlide ? 'grid-cols-1 justify-center max-w-6xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
+                      <div className={`grid gap-8 ${isOddSlide ? 'grid-cols-1 justify-center max-w-2xl mx-auto' : 'grid-cols-1 lg:grid-cols-2 items-stretch max-w-6xl mx-auto'}`}>
                         {slideTestimonials.map((testimonial, index) => (
                           <motion.div
                             key={`${testimonial.name}-${slideIndex}-${index}`}
@@ -445,7 +459,7 @@ export default function Home() {
                               delay: index * 0.1,
                               ease: "easeOut"
                             }}
-                            className={`glass-card p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer ${isLastSlide ? 'mx-auto' : ''}`}
+                            className={`glass-card p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer h-full flex flex-col ${isOddSlide ? 'mx-auto' : ''}`}
                           >
                             <div className="flex items-center mb-4">
                               <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm mr-4 group-hover:scale-110 transition-transform duration-300">
@@ -463,7 +477,7 @@ export default function Home() {
                               ))}
                             </div>
                             
-                            <p className="text-muted-foreground italic group-hover:text-foreground transition-colors duration-300">&ldquo;{testimonial.content}&rdquo;</p>
+                            <p className="text-muted-foreground italic group-hover:text-foreground transition-colors duration-300 flex-grow">&ldquo;{testimonial.content}&rdquo;</p>
                           </motion.div>
                         ))}
                       </div>
