@@ -29,8 +29,8 @@ export default function ContactPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-              Ready to start your business journey? We're here to help you every step of the way. 
-              Let's discuss your project and see how we can bring your vision to life.
+              Ready to start your business journey? We&apos;re here to help you every step of the way. 
+              Let&apos;s discuss your project and see how we can bring your vision to life.
             </p>
           </motion.div>
         </div>
@@ -51,8 +51,8 @@ export default function ContactPage() {
               Send Us a Message
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Fill out the form below and we'll get back to you within 24 hours. 
-              We're excited to learn about your project and how we can help.
+              Fill out the form below and we&apos;ll get back to you within 24 hours. 
+              We&apos;re excited to learn about your project and how we can help.
             </p>
           </motion.div>
 

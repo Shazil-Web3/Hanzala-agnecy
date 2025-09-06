@@ -36,7 +36,7 @@ const values = [
     icon: Users,
     title: "Client-Focused",
     description:
-      "Your goals become our goals. We're invested in your long-term success.",
+      "Your goals become our goals. We&apos;re invested in your long-term success.",
   },
 ];
 

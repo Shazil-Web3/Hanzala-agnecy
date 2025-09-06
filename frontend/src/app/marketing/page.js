@@ -19,7 +19,7 @@ const services = [
   {
     icon: Search,
     title: "Google Ads",
-    description: "Targeted search campaigns that capture high-intent customers when they're ready to buy.",
+    description: "Targeted search campaigns that capture high-intent customers when they&apos;re ready to buy.",
     features: [
       "Search & Display campaigns",
       "Shopping ads setup", 
@@ -58,7 +58,7 @@ const services = [
   {
     icon: Zap,
     title: "TikTok Ads",
-    description: "Viral marketing campaigns that tap into TikTok's massive, engaged user base.",
+    description: "Viral marketing campaigns that tap into TikTok&apos;s massive, engaged user base.",
     features: [
       "In-feed video ads",
       "Brand takeover campaigns",

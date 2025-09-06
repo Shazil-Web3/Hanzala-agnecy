@@ -99,7 +99,7 @@ const testimonials = [
   {
     name: "David Park",
     role: "Founder, InnovateCorp",
-    content: "Hanzwell Agency's business advice saved us thousands in taxes. Highly recommend their expertise.",
+    content: "Hanzwell Agency&apos;s business advice saved us thousands in taxes. Highly recommend their expertise.",
     rating: 5,
     avatar: "DP"
   }
@@ -221,7 +221,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              Transform your vision into reality with our all-in-one business solutions. From marketing to websites to payment gateway formations, we've got you covered.
+              Transform your vision into reality with our all-in-one business solutions. From marketing to websites to payment gateway formations, we&apos;ve got you covered.
             </p>
           </motion.div>
 

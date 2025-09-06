@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     question: "Do you provide ongoing maintenance?",
-    answer: "For maintenance, you can contact us directly. We offer maintenance for Premium websites, but for Standard or Basic plans, we can discuss the cost as it's not included in the plan."
+    answer: "For maintenance, you can contact us directly. We offer maintenance for Premium websites, but for Standard or Basic plans, we can discuss the cost as it&apos;s not included in the plan."
   },
   {
     question: "Which languages are used for developing websites?",
