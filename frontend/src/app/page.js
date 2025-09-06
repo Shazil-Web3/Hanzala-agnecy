@@ -281,6 +281,13 @@ export default function Home() {
                     transition: { duration: 0.3 },
                   }}
                   className="glass-card p-8 h-full flex flex-col group cursor-pointer relative overflow-hidden"
+                  onClick={() => {
+                    if (service.title === "Marketing") {
+                      window.location.href = "/marketing";
+                    } else if (service.title === "Website Creation") {
+                      window.location.href = "/website-creation";
+                    }
+                  }}
                 >
                   {/* Background Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -314,9 +321,12 @@ export default function Home() {
                     )}
 
                     <Button
-                      onClick={() => {
-                        if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
-                          window.scrollToContact();
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (service.title === "Marketing") {
+                          window.location.href = "/marketing";
+                        } else if (service.title === "Website Creation") {
+                          window.location.href = "/website-creation";
                         }
                       }}
                       variant="outline"
@@ -346,7 +356,7 @@ export default function Home() {
                     y: -5,
                     transition: { duration: 0.2 },
                   }}
-                  className="glass-card p-6 h-full flex flex-col group cursor-pointer relative overflow-hidden"
+                  className="glass-card p-6 h-full flex flex-col group relative overflow-hidden"
                 >
                   {/* Background Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -365,7 +375,7 @@ export default function Home() {
                     </p>
 
                     {Array.isArray(service.features) && service.features.length > 0 && (
-                      <ul className="space-y-2 mb-6">
+                      <ul className="space-y-2">
                         {service.features.map((feature, idx) => (
                           <li key={idx} className="text-sm text-muted-foreground flex items-start">
                             <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-2 flex-shrink-0" />
@@ -374,18 +384,6 @@ export default function Home() {
                         ))}
                       </ul>
                     )}
-
-                    <Button
-                      onClick={() => {
-                        if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
-                          window.scrollToContact();
-                        }
-                      }}
-                      variant="outline"
-                      className="w-full mt-auto border border-gray-600 hover:bg-accent hover:text-accent-foreground transition-all duration-300 group-hover:border-primary group-hover:text-primary"
-                    >
-                      Learn More
-                    </Button>
                   </div>
                 </motion.div>
               ))}
@@ -436,7 +434,7 @@ export default function Home() {
                       key={slideIndex}
                       className="w-full flex-shrink-0"
                     >
-                      <div className={`grid gap-8 ${isLastSlide ? 'grid-cols-1 justify-center max-w-6xl mx-auto' : 'grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto'}`}>
+                      <div className={`grid gap-8 ${isLastSlide ? 'grid-cols-1 justify-center max-w-6xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
                         {slideTestimonials.map((testimonial, index) => (
                           <motion.div
                             key={`${testimonial.name}-${slideIndex}-${index}`}
