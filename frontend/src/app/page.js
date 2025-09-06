@@ -9,9 +9,12 @@ import {
   ArrowUp,
   Star
 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ContactSection } from "@/components/ContactSection";
+import { ReviewForm } from "@/components/ReviewForm";
+import { API_ENDPOINTS } from "@/config/api";
 
 const services = [
   {
@@ -96,18 +99,97 @@ const testimonials = [
   {
     name: "David Park",
     role: "Founder, InnovateCorp",
-    content: "Wise Formation's business advice saved us thousands in taxes. Highly recommend their expertise.",
+    content: "Hanzwell Agency's business advice saved us thousands in taxes. Highly recommend their expertise.",
     rating: 5,
     avatar: "DP"
   }
 ];
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  
+  // Combine static testimonials with dynamic reviews
+  const allTestimonials = [...testimonials, ...reviews.map(review => ({
+    name: review.name,
+    role: review.company || 'Client',
+    content: review.message,
+    rating: review.rating,
+    avatar: review.name.charAt(0).toUpperCase(),
+    isDynamic: true
+  }))];
+  
+  // Calculate total slides based on combined testimonials
+  const totalSlides = Math.ceil(allTestimonials.length / 2);
+  
   const handleGetStarted = () => {
     if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
       window.scrollToContact();
     }
   };
+
+  const openReviewForm = () => {
+    setIsReviewFormOpen(true);
+  };
+
+  const closeReviewForm = () => {
+    setIsReviewFormOpen(false);
+    // Refresh reviews when form is closed (in case a new review was submitted)
+    fetchReviews();
+  };
+
+  // Fetch reviews from backend
+  const fetchReviews = async () => {
+    try {
+      setLoadingReviews(true);
+      const response = await fetch(API_ENDPOINTS.REVIEWS);
+      const result = await response.json();
+      
+      if (response.ok) {
+        setReviews(result.data || []);
+      } else {
+        console.error('Failed to fetch reviews:', result.message);
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    } finally {
+      setLoadingReviews(false);
+    }
+  };
+
+  // Auto-slide every 2 seconds with infinite loop
+  useEffect(() => {
+    if (totalSlides > 1) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % totalSlides);
+      }, 2000);
+
+      return () => clearInterval(interval);
+    }
+  }, [totalSlides]);
+
+  // Fetch reviews on component mount
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  // Set up global function for opening review form
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.openReviewForm = openReviewForm;
+    }
+  }, []);
+
+  // Auto-refresh reviews every 30 seconds to catch new submissions
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchReviews();
+    }, 30000); // 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="pt-20">
@@ -325,50 +407,85 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
               What Our Clients Say
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
               Don&apos;t just take our word for it. See what our satisfied clients have to say 
               about our services and results.
             </p>
+            <Button
+              onClick={openReviewForm}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Add a Review
+            </Button>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: "easeOut"
-                }}
-                className="glass-card p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer"
+          <div className="relative w-full overflow-hidden">
+            {/* Carousel wrapper */}
+            <div className="relative h-auto overflow-hidden">
+              <div 
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm mr-4 group-hover:scale-110 transition-transform duration-300">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors duration-300">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground group-hover:text-purple-300 transition-colors duration-300">{testimonial.role}</p>
-                  </div>
-                </div>
-                
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }} />
-                  ))}
-                </div>
-                
-                <p className="text-muted-foreground italic group-hover:text-foreground transition-colors duration-300">&ldquo;{testimonial.content}&rdquo;</p>
-              </motion.div>
-            ))}
+                {Array.from({ length: totalSlides }).map((_, slideIndex) => {
+                  const slideTestimonials = allTestimonials.slice(slideIndex * 2, slideIndex * 2 + 2);
+                  const isLastSlide = slideIndex === totalSlides - 1;
+                  const isOddSlide = slideTestimonials.length === 1;
+                  
+                  return (
+                    <div 
+                      key={slideIndex}
+                      className="w-full flex-shrink-0"
+                    >
+                      <div className={`grid gap-8 ${isLastSlide ? 'grid-cols-1 justify-center max-w-6xl mx-auto' : 'grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto'}`}>
+                        {slideTestimonials.map((testimonial, index) => (
+                          <motion.div
+                            key={`${testimonial.name}-${slideIndex}-${index}`}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ 
+                              duration: 0.6,
+                              delay: index * 0.1,
+                              ease: "easeOut"
+                            }}
+                            className={`glass-card p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer ${isLastSlide ? 'mx-auto' : ''}`}
+                          >
+                            <div className="flex items-center mb-4">
+                              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm mr-4 group-hover:scale-110 transition-transform duration-300">
+                                {testimonial.avatar}
+                              </div>
+                              <div>
+                                <h4 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors duration-300">{testimonial.name}</h4>
+                                <p className="text-sm text-muted-foreground group-hover:text-purple-300 transition-colors duration-300">{testimonial.role}</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex mb-4">
+                              {[...Array(testimonial.rating)].map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }} />
+                              ))}
+                            </div>
+                            
+                            <p className="text-muted-foreground italic group-hover:text-foreground transition-colors duration-300">&ldquo;{testimonial.content}&rdquo;</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
       <ContactSection />
+
+      {/* Review Form Popup */}
+      <ReviewForm 
+        isOpen={isReviewFormOpen} 
+        onClose={closeReviewForm} 
+      />
     </div>
   );
 }

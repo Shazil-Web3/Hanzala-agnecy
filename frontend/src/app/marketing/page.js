@@ -85,44 +85,44 @@ const services = [
 
 const caseStudies = [
   {
-    title: "E-commerce Fashion Brand",
-    platform: "Google Ads + Meta",
+    title: "Google Ads Service",
+    platform: "Search & Display Campaigns",
     metrics: [
-      { label: "ROAS", value: "4.2x" },
-      { label: "CTR", value: "3.8%" },
-      { label: "Conv Rate", value: "2.1%" }
+      { label: "ROAS", value: "4x+" },
+      { label: "CTR", value: "3%+" },
+      { label: "Conv Rate", value: "2%+" }
     ],
-    result: "Generated $120K revenue in 3 months with $28K ad spend."
+    result: "Get exceptional return on ad spend with targeted campaigns that capture high-intent customers."
   },
   {
-    title: "Local Service Business", 
-    platform: "Google Ads + YouTube",
+    title: "YouTube Ads Service", 
+    platform: "Video Marketing Campaigns",
     metrics: [
-      { label: "Cost/Lead", value: "-65%" },
-      { label: "Leads", value: "+340%" },
-      { label: "Revenue", value: "+280%" }
+      { label: "Reach", value: "Millions" },
+      { label: "Engagement", value: "High" },
+      { label: "Conversions", value: "Significant" }
     ],
-    result: "Scaled from 5 to 22 monthly leads while reducing cost per acquisition."
+    result: "Reach massive audiences with engaging video content and achieve substantial conversion increases."
   },
   {
-    title: "SaaS Startup",
-    platform: "Meta + TikTok",
+    title: "Meta Ads Service",
+    platform: "Facebook & Instagram",
     metrics: [
-      { label: "CAC", value: "-45%" },
-      { label: "Signups", value: "+520%" },
-      { label: "Revenue", value: "+400%" }
+      { label: "CAC", value: "Reduced" },
+      { label: "Signups", value: "Increased" },
+      { label: "Revenue", value: "Boosted" }
     ],
-    result: "Achieved 520% increase in sign-ups with 45% lower customer acquisition cost."
+    result: "Dramatically reduce customer acquisition costs while significantly increasing signups and revenue."
   },
   {
-    title: "Health & Wellness",
-    platform: "YouTube + Snapchat", 
+    title: "TikTok Ads Service",
+    platform: "Viral Marketing Campaigns", 
     metrics: [
-      { label: "Reach", value: "2.1M" },
-      { label: "Engagement", value: "8.3%" },
-      { label: "Conversions", value: "+190%" }
+      { label: "Cost/Lead", value: "Lowered" },
+      { label: "Leads", value: "Scaled" },
+      { label: "Revenue", value: "Multiplied" }
     ],
-    result: "Built brand awareness reaching 2.1M users with 8.3% engagement rate."
+    result: "Scale your lead generation while reducing cost per acquisition and multiplying your revenue."
   }
 ];
 
@@ -481,11 +481,11 @@ export default function Marketing() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-              Real Results, Real Clients
+              Get These Results, Join Us Now
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              See how we&apos;ve helped businesses across industries achieve 
-              exceptional growth through strategic digital marketing.
+              Transform your business with our proven digital marketing strategies. 
+              Get our services and achieve exceptional growth with our expert team.
             </p>
           </motion.div>
 

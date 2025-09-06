@@ -16,12 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Wise Formation - LLC Formation, Website Creation & Marketing",
-  description: "Professional LLC formation, website creation, and digital marketing services. Grow your business with our expert team.",
-  keywords: "LLC formation, website creation, digital marketing, business formation, web design",
+  title: "Hanzwell Agency - Digital Marketing & Website Creation",
+  description: "Professional digital marketing and website creation services. Grow your business with our expert team and proven strategies.",
+  keywords: "digital marketing, website creation, Google Ads, Meta Ads, TikTok Ads, YouTube Ads, business growth",
   openGraph: {
-    title: "Wise Formation - LLC Formation, Website Creation & Marketing",
-    description: "Professional LLC formation, website creation, and digital marketing services. Grow your business with our expert team.",
+    title: "Hanzwell Agency - Digital Marketing & Website Creation",
+    description: "Professional digital marketing and website creation services. Grow your business with our expert team and proven strategies.",
     type: "website",
   },
 };

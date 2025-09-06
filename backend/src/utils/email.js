@@ -37,8 +37,6 @@ const sendLeadNotification = async (lead) => {
           </div>
           
           <div style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Service Interest:</strong> ${lead.service}</p>
-            <p><strong>Status:</strong> ${lead.status}</p>
             <p><strong>Date:</strong> ${new Date(lead.createdAt).toLocaleString()}</p>
             <p><strong>Lead ID:</strong> ${lead._id}</p>
           </div>
@@ -67,7 +65,7 @@ const sendConfirmationEmail = async (lead) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: lead.email,
-      subject: 'Thank you for your interest! - Hanzala Project',
+      subject: 'Thank you for your interest! - Hanzwell Agency',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #4CAF50; text-align: center;">Thank you, ${lead.name}!</h2>
@@ -85,7 +83,6 @@ const sendConfirmationEmail = async (lead) => {
               </ul>
             </div>
             
-            <p style="font-size: 14px; color: #666;">If you have any urgent questions, feel free to reach out to us directly.</p>
           </div>
           
           <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #4CAF50; color: white; border-radius: 8px;">

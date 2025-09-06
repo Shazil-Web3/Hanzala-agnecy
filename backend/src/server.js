@@ -6,14 +6,18 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const contactRoutes = require('./routes/contact.routes');
+const reviewRoutes = require('./routes/review.routes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(helmet());
-app.use(cors());
-app.use(morgan('combined'));
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://yourdomain.com'], // Add your production domain
+  credentials: true
+}));
+app.use(morgan('dev')); // Less verbose logging
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,6 +32,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hanzala-p
 
 // Routes
 app.use('/api/contact', contactRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

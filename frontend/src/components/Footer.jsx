@@ -28,7 +28,7 @@ const Footer = () => {
     { name: 'About', href: '/about' },
     { name: 'Website Creation', href: '/website-creation' },
     { name: 'Marketing', href: '/marketing' },
-    { name: 'Contact', href: '#contact', onClick: scrollToContact },
+    { name: 'Reviews', href: '#reviews', onClick: () => window.openReviewForm?.() },
   ];
 
   return (
@@ -47,13 +47,12 @@ const Footer = () => {
               className="lg:col-span-2"
             >
               <div className="mb-5">
-                <h3 className="text-2xl font-bold text-white">Wise Formation</h3>
-                <p className="text-sm text-slate-300">Business Solutions</p>
+                <h3 className="text-2xl font-bold text-white">Hanzwell Agency</h3>
+                <p className="text-sm text-slate-300">Digital Marketing Solutions</p>
               </div>
 
               <p className="text-slate-300 mb-6 max-w-lg leading-relaxed">
-                Your trusted partner for comprehensive business solutions. From LLC formation to digital marketing,
-                we help businesses grow and succeed in the digital age with expert guidance and innovative strategies.
+                Join us now and get the best results for your business! Transform your digital presence with our proven marketing strategies and expert team. Let's achieve exceptional growth together.
               </p>
 
               {/* Contact Info */}
