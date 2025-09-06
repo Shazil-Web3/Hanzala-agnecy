@@ -28,7 +28,7 @@ const Footer = () => {
     { name: 'About', href: '/about' },
     { name: 'Website Creation', href: '/website-creation' },
     { name: 'Marketing', href: '/marketing' },
-    { name: 'Reviews', href: '#reviews', onClick: () => window.openReviewForm?.() },
+    { name: 'Add Your Review', href: '#reviews', onClick: () => window.openReviewForm?.() },
   ];
 
   return (
