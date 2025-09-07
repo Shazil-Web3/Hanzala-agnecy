@@ -88,9 +88,9 @@ const caseStudies = [
     title: "Google Ads Service",
     platform: "Search & Display Campaigns",
     metrics: [
-      { label: "ROAS", value: "4x+" },
-      { label: "CTR", value: "3%+" },
-      { label: "Conv Rate", value: "2%+" }
+      { label: "ROAS", value: "4x+", valueMobile: "4x+" },
+      { label: "CTR", value: "3%+", valueMobile: "3%+" },
+      { label: "Conv Rate", value: "2%+", valueMobile: "2%+" }
     ],
     result: "Get exceptional return on ad spend with targeted campaigns that capture high-intent customers."
   },
@@ -98,9 +98,9 @@ const caseStudies = [
     title: "YouTube Ads Service", 
     platform: "Video Marketing Campaigns",
     metrics: [
-      { label: "Reach", value: "Millions" },
-      { label: "Engagement", value: "High" },
-      { label: "Conversions", value: "Significant" }
+      { label: "Reach", value: "Millions", valueMobile: "M+" },
+      { label: "Engagement", value: "High", valueMobile: "High" },
+      { label: "Conversions", value: "Significant", valueMobile: "Big" }
     ],
     result: "Reach massive audiences with engaging video content and achieve substantial conversion increases."
   },
@@ -108,9 +108,9 @@ const caseStudies = [
     title: "Meta Ads Service",
     platform: "Facebook & Instagram",
     metrics: [
-      { label: "CAC", value: "Reduced" },
-      { label: "Signups", value: "Increased" },
-      { label: "Revenue", value: "Boosted" }
+      { label: "CAC", value: "Reduced", valueMobile: "Down" },
+      { label: "Signups", value: "Increased", valueMobile: "More" },
+      { label: "Revenue", value: "Boosted", valueMobile: "Grow" }
     ],
     result: "Dramatically reduce customer acquisition costs while significantly increasing signups and revenue."
   },
@@ -118,9 +118,9 @@ const caseStudies = [
     title: "TikTok Ads Service",
     platform: "Viral Marketing Campaigns", 
     metrics: [
-      { label: "Cost/Lead", value: "Lowered" },
-      { label: "Leads", value: "Scaled" },
-      { label: "Revenue", value: "Multiplied" }
+      { label: "Cost/Lead", value: "Lowered", valueMobile: "Less" },
+      { label: "Leads", value: "Scaled", valueMobile: "More" },
+      { label: "Revenue", value: "Multiplied", valueMobile: "2x+" }
     ],
     result: "Scale your lead generation while reducing cost per acquisition and multiplying your revenue."
   }
@@ -514,7 +514,8 @@ export default function Marketing() {
                   {study.metrics.map((metric, idx) => (
                     <div key={idx} className="text-center">
                       <div className="text-2xl font-bold gradient-text mb-1">
-                        {metric.value}
+                        <span className="hidden sm:inline">{metric.value}</span>
+                        <span className="sm:hidden">{metric.valueMobile}</span>
                       </div>
                       <div className="text-xs text-muted-foreground">
                         {metric.label}

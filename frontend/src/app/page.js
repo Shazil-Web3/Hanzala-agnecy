@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ContactSection } from "@/components/ContactSection";
-import { ReviewForm } from "@/components/ReviewForm";
 import { API_ENDPOINTS } from "@/config/api";
 
 const services = [
@@ -51,17 +50,6 @@ const services = [
     ]
   },
   {
-    icon: Building,
-    title: "Payment Gateways Formation",
-    description: "We can develop payment gateways for you to process online transactions securely.",
-    features: [
-      "Wise Formation",
-      "PayPal Formation", 
-      "Payoneer Formation",
-      "Stripe Formation"
-    ]
-  },
-  {
     icon: ArrowUp,
     title: "LTD Formation",
     description: "Advanced business strategies to scale and optimize your growing company.",
@@ -70,6 +58,17 @@ const services = [
       "Process optimization",
       "Team development",
       "Performance metrics"
+    ]
+  },
+  {
+    icon: Building,
+    title: "Payment Gateways Formation",
+    description: "We can develop payment gateways for you to process online transactions securely.",
+    features: [
+      "Wise Formation",
+      "PayPal Formation", 
+      "Payoneer Formation",
+      "Stripe Formation"
     ]
   }
 ];
@@ -107,7 +106,6 @@ const testimonials = [
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   
@@ -140,15 +138,6 @@ export default function Home() {
     }
   };
 
-  const openReviewForm = () => {
-    setIsReviewFormOpen(true);
-  };
-
-  const closeReviewForm = () => {
-    setIsReviewFormOpen(false);
-    // Refresh reviews when form is closed (in case a new review was submitted)
-    fetchReviews();
-  };
 
   // Fetch reviews from backend
   const fetchReviews = async () => {
@@ -189,12 +178,6 @@ export default function Home() {
     fetchReviews();
   }, []);
 
-  // Set up global function for opening review form
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.openReviewForm = openReviewForm;
-    }
-  }, []);
 
   // Auto-refresh reviews every 30 seconds to catch new submissions
   useEffect(() => {
@@ -424,7 +407,7 @@ export default function Home() {
               about our services and results.
             </p>
             <Button
-              onClick={openReviewForm}
+              onClick={() => window.openReviewForm?.()}
               className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Add a Review
@@ -492,12 +475,6 @@ export default function Home() {
       </section>
 
       <ContactSection />
-
-      {/* Review Form Popup */}
-      <ReviewForm 
-        isOpen={isReviewFormOpen} 
-        onClose={closeReviewForm} 
-      />
     </div>
   );
 }

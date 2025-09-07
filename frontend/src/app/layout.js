@@ -4,6 +4,7 @@ import LenisProvider from "@/components/LenisProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
+import GlobalReviewForm from "@/components/GlobalReviewForm";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
+          <GlobalReviewForm />
           <Toaster 
             position="top-right"
             toastOptions={{
