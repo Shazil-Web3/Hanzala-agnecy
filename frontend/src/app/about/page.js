@@ -105,10 +105,10 @@ export default function About() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="gradient-text">About Wise Formation</span>
+              <span className="gradient-text">About Hanzwell Agency </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
-              We&apos;re more than a service provider—we&apos;re your strategic partner in
+              Hanzwell Agency is your comprehensive business solutions provider—we&apos;re your strategic partner in
               building and scaling successful businesses from the ground up.
             </p>
           </motion.div>
@@ -127,17 +127,17 @@ export default function About() {
             >
               <h2 className="text-4xl font-bold mb-6 gradient-text">Who We Are</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Founded by entrepreneurs for entrepreneurs, Wise Formation
+                Founded by entrepreneurs for entrepreneurs, <span className="font-semibold text-primary">Hanzwell Agency </span>
                 understands the unique challenges of starting and growing a
                 business. Our team combines legal expertise, technical skills, and
                 marketing prowess to provide comprehensive solutions that actually
                 work.
               </p>
               <p className="text-lg text-muted-foreground mb-8">
-                We&apos;ve helped hundreds of businesses navigate the complex
+                As a full-service business solutions agency, we&apos;ve helped hundreds of businesses navigate the complex
                 landscape of formation, compliance, digital presence, and growth
                 marketing. Our mission is simple: make business success accessible
-                to everyone.
+                to everyone through our comprehensive agency services.
               </p>
 
               <div className="grid grid-cols-2 gap-8">
@@ -304,10 +304,10 @@ export default function About() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-              Why Choose Wise Formation
+              Why Choose Hanzwell Agency
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Experience the difference of working with a team that truly cares
+              Experience the difference of working with a business solutions agency that truly cares
               about your success and has the expertise to deliver results.
             </p>
           </motion.div>

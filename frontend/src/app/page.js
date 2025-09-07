@@ -123,14 +123,6 @@ export default function Home() {
   // Always show 2 testimonials per slide for consistent 2x2 grid
   const totalSlides = Math.ceil(allTestimonials.length / 2);
   
-  // Debug logging
-  console.log('🎯 Layout Debug:', {
-    staticTestimonials: testimonials.length,
-    dynamicReviews: reviews.length,
-    allTestimonials: allTestimonials.length,
-    totalSlides,
-    reviews
-  });
   
   const handleGetStarted = () => {
     if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
@@ -218,7 +210,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              Transform your vision into reality with our all-in-one business solutions. From marketing to websites to payment gateway formations, we&apos;ve got you covered.
+            Hanzwell Agency gives you the vision to turn your business dreams into reality with our comprehensive all-in-one business solutions. From marketing to websites to payment gateway formations, we&apos;ve got you covered.
             </p>
           </motion.div>
 
@@ -414,7 +406,7 @@ export default function Home() {
             </Button>
           </motion.div>
 
-          <div className="relative w-full overflow-hidden">
+          <div className="relative w-full overflow-hidden px-4 sm:px-0">
             {/* Carousel wrapper */}
             <div className="relative h-auto overflow-hidden">
               <div 
@@ -429,9 +421,9 @@ export default function Home() {
                   return (
                     <div 
                       key={slideIndex}
-                      className="w-full flex-shrink-0"
+                      className="w-full flex-shrink-0 px-2 sm:px-4"
                     >
-                      <div className={`grid gap-8 ${isOddSlide ? 'grid-cols-1 justify-center max-w-2xl mx-auto' : 'grid-cols-1 lg:grid-cols-2 items-stretch max-w-6xl mx-auto'}`}>
+                      <div className={`grid gap-4 sm:gap-8 ${isOddSlide ? 'grid-cols-1 justify-center max-w-md sm:max-w-lg mx-auto' : 'grid-cols-1 lg:grid-cols-2 items-stretch max-w-6xl mx-auto'}`}>
                         {slideTestimonials.map((testimonial, index) => (
                           <motion.div
                             key={`${testimonial.name}-${slideIndex}-${index}`}
@@ -442,25 +434,25 @@ export default function Home() {
                               delay: index * 0.1,
                               ease: "easeOut"
                             }}
-                            className={`glass-card p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer h-full flex flex-col ${isOddSlide ? 'mx-auto' : ''}`}
+                            className={`glass-card p-4 sm:p-8 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer h-full flex flex-col ${isOddSlide ? 'mx-auto w-full max-w-sm sm:max-w-md min-w-0' : ''}`}
                           >
-                            <div className="flex items-center mb-4">
-                              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm mr-4 group-hover:scale-110 transition-transform duration-300">
+                            <div className="flex items-center mb-3 sm:mb-4">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-xs sm:text-sm mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300">
                                 {testimonial.avatar}
                               </div>
                               <div>
-                                <h4 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors duration-300">{testimonial.name}</h4>
-                                <p className="text-sm text-muted-foreground group-hover:text-purple-300 transition-colors duration-300">{testimonial.role}</p>
+                                <h4 className="font-semibold text-sm sm:text-base text-foreground group-hover:text-purple-400 transition-colors duration-300">{testimonial.name}</h4>
+                                <p className="text-xs sm:text-sm text-muted-foreground group-hover:text-purple-300 transition-colors duration-300">{testimonial.role}</p>
                               </div>
                             </div>
                             
-                            <div className="flex mb-4">
+                            <div className="flex mb-3 sm:mb-4">
                               {[...Array(testimonial.rating)].map((_, i) => (
-                                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }} />
+                                <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }} />
                               ))}
                             </div>
                             
-                            <p className="text-muted-foreground italic group-hover:text-foreground transition-colors duration-300 flex-grow">&ldquo;{testimonial.content}&rdquo;</p>
+                            <p className="text-muted-foreground italic text-sm sm:text-base group-hover:text-foreground transition-colors duration-300 flex-grow break-words overflow-wrap-anywhere hyphens-auto">&ldquo;{testimonial.content}&rdquo;</p>
                           </motion.div>
                         ))}
                       </div>
