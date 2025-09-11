@@ -138,9 +138,9 @@ const benefits = [
     description: "Certified specialists across all major advertising platforms."
   },
   {
-    icon: Users,
-    title: "Expert Team",
-    description: "Dedicated professionals with deep expertise in digital marketing and advertising."
+    icon: BarChart,
+    title: "Data-Driven Marketing",
+    description: "Advanced analytics and insights that optimize campaigns for maximum ROI and performance."
   },
   {
     icon: Eye,

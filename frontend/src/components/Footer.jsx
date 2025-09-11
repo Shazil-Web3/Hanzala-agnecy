@@ -48,7 +48,7 @@ const Footer = () => {
             >
               <div className="mb-5">
                 <h3 className="text-2xl font-bold text-white">Hanzwell Agency</h3>
-                <p className="text-sm text-slate-300">Digital Business Solutions</p>
+                <p className="text-sm text-slate-300">Digital Marketing Solutions</p>
               </div>
 
               <p className="text-slate-300 mb-6 max-w-lg leading-relaxed">

@@ -39,8 +39,8 @@ const leadSchema = new mongoose.Schema({
   },
   service: {
     type: String,
-    enum: ['website-creation', 'marketing', 'general'],
-    default: 'general'
+    enum: ['marketing', 'website', 'llc-ltd', 'payment-gateway'],
+    required: true
   },
   status: {
     type: String,

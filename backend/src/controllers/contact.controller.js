@@ -4,13 +4,22 @@ const emailService = require('../utils/email');
 // Create a new lead
 const createLead = async (req, res) => {
   try {
-    const { name, email, countryCode, phone, message, company } = req.body;
+    const { name, email, countryCode, phone, message, company, service } = req.body;
 
     // Validate required fields
-    if (!name || !email || !countryCode || !phone || !message) {
+    if (!name || !email || !countryCode || !phone || !message || !service) {
       return res.status(400).json({
         success: false,
-        message: 'Name, email, country code, phone, and message are required'
+        message: 'Name, email, country code, phone, message, and service are required'
+      });
+    }
+
+    // Validate service field
+    const validServices = ['marketing', 'website', 'llc-ltd', 'payment-gateway'];
+    if (!validServices.includes(service)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please select a valid service'
       });
     }
 
@@ -23,6 +32,15 @@ const createLead = async (req, res) => {
       });
     }
 
+    // Validate phone number format
+    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+    if (!phoneRegex.test(phone) || phone.length < 7 || phone.length > 15) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid phone number (7-15 characters, numbers, spaces, dashes, plus signs, and parentheses only)'
+      });
+    }
+
     // Create new lead
     const lead = new Lead({
       name: name.trim(),
@@ -31,7 +49,7 @@ const createLead = async (req, res) => {
       phone: phone.trim(),
       message: message.trim(),
       company: company ? company.trim() : '',
-      service: 'general',
+      service: service.trim(),
       status: 'new',
       createdAt: new Date()
     });

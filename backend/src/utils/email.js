@@ -1,5 +1,16 @@
 const nodemailer = require('nodemailer');
 
+// Helper function to format service names
+const formatServiceName = (service) => {
+  const serviceMap = {
+    'marketing': 'Marketing',
+    'website': 'Website',
+    'llc-ltd': 'LLC, LTD',
+    'payment-gateway': 'Payment Gateway Formation'
+  };
+  return serviceMap[service] || service;
+};
+
 // Create transporter for Gmail
 const createTransporter = () => {
   return nodemailer.createTransport({
@@ -18,7 +29,7 @@ const sendLeadNotification = async (lead) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.ADMIN_EMAIL,
-      subject: `New Lead: ${lead.name} - ${lead.company || 'No Company'}`,
+      subject: `New Lead: ${lead.name} - ${formatServiceName(lead.service)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">New Lead Received</h2>
@@ -29,6 +40,7 @@ const sendLeadNotification = async (lead) => {
             <p><strong>Email:</strong> ${lead.email}</p>
             <p><strong>Phone:</strong> ${lead.countryCode} ${lead.phone}</p>
             <p><strong>Company:</strong> ${lead.company || 'Not provided'}</p>
+            <p><strong>Service Interested In:</strong> <span style="color: #4CAF50; font-weight: bold;">${formatServiceName(lead.service)}</span></p>
           </div>
           
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -71,12 +83,12 @@ const sendConfirmationEmail = async (lead) => {
           <h2 style="color: #4CAF50; text-align: center;">Thank you, ${lead.name}!</h2>
           
           <div style="background-color: #f9f9f9; padding: 30px; border-radius: 8px; margin: 20px 0;">
-            <p style="font-size: 16px; line-height: 1.6;">We have received your inquiry and are excited to learn more about your project. Our team will review your message and get back to you within 24 hours.</p>
+            <p style="font-size: 16px; line-height: 1.6;">We have received your inquiry for <strong style="color: #4CAF50;">${formatServiceName(lead.service)}</strong> services and are excited to learn more about your project. Our team will review your message and get back to you within 24 hours.</p>
             
             <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #2e7d32; margin-top: 0;">What happens next?</h3>
               <ul style="color: #333;">
-                <li>We'll review your requirements</li>
+                <li>We'll review your requirements for ${formatServiceName(lead.service)} services</li>
                 <li>Our team will prepare a customized proposal</li>
                 <li>We'll schedule a call to discuss your project in detail</li>
                 <li>We'll provide you with a timeline and pricing</li>
