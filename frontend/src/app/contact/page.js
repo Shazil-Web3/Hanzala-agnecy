@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ContactForm } from "@/components/ContactForm";
+import { ContactForm } from "../../components/ContactForm";
 
 export default function ContactPage() {
   return (
@@ -15,7 +15,7 @@ export default function ContactPage() {
       <div className="orb-6"></div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden py-24 px-4">
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden py-16 px-4">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -38,14 +38,14 @@ export default function ContactPage() {
 
 
       {/* Contact Form Section */}
-      <section className="py-16 px-4">
+      <section className="py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8 hidden md:block"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">
               Send Us a Message

@@ -12,7 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
-import { ContactSection } from "@/components/ContactSection";
+import { ContactSection } from "../components/ContactSection";
 import { API_ENDPOINTS } from "@/config/api";
 
 const services = [
