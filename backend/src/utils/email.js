@@ -11,7 +11,7 @@ const formatServiceName = (service) => {
   return serviceMap[service] || service;
 };
 
-// Create transporter for Gmail
+// Create transporter for Gmail (for admin notifications)
 const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
@@ -22,13 +22,31 @@ const createTransporter = () => {
   });
 };
 
+// Create transporter for Hanzwell Agency emails (for user confirmations)
+const createHanzwellTransporter = () => {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER2,
+      pass: process.env.EMAIL_APP_PASSWORD2 // Use App Password for Hanzwell Agency
+    }
+  });
+};
+
 const sendLeadNotification = async (lead) => {
   try {
     const transporter = createTransporter();
     
+    // Send to both admin emails - using EMAIL_USER2 as the second admin email
+    const adminEmails = [process.env.ADMIN_EMAIL, process.env.EMAIL_USER2].filter(Boolean);
+    
+    console.log('🔍 DEBUG: Admin emails configured:', adminEmails);
+    console.log('🔍 DEBUG: ADMIN_EMAIL:', process.env.ADMIN_EMAIL);
+    console.log('🔍 DEBUG: EMAIL_USER2 (second admin):', process.env.EMAIL_USER2);
+    
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.ADMIN_EMAIL,
+      to: adminEmails.join(','),
       subject: `New Lead: ${lead.name} - ${formatServiceName(lead.service)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -60,22 +78,29 @@ const sendLeadNotification = async (lead) => {
       `
     };
 
+    console.log('📤 Sending lead notification to:', adminEmails.join(', '));
+    console.log('📤 Email subject:', mailOptions.subject);
+    
     const result = await transporter.sendMail(mailOptions);
-    console.log('📧 Lead notification email sent successfully:', result.messageId);
+    console.log('✅ Lead notification email sent successfully!');
+    console.log('📧 Message ID:', result.messageId);
+    console.log('📧 Recipients:', result.accepted);
+    console.log('📧 Rejected:', result.rejected);
     
     return { success: true, message: 'Email sent successfully', messageId: result.messageId };
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('❌ Lead notification email sending error:', error);
+    console.error('❌ Error details:', error.message);
     throw error;
   }
 };
 
 const sendConfirmationEmail = async (lead) => {
   try {
-    const transporter = createTransporter();
+    const transporter = createHanzwellTransporter();
     
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_USER2, // Send from Hanzwell Agency email
       to: lead.email,
       subject: 'Thank you for your interest! - Hanzwell Agency',
       html: `
@@ -104,12 +129,18 @@ const sendConfirmationEmail = async (lead) => {
       `
     };
 
+    console.log('📤 Sending confirmation email from Hanzwell Agency to:', lead.email);
+    console.log('📤 From email:', process.env.EMAIL_USER2);
+    
     const result = await transporter.sendMail(mailOptions);
-    console.log('📧 Confirmation email sent successfully:', result.messageId);
+    console.log('✅ Confirmation email sent successfully from Hanzwell Agency!');
+    console.log('📧 Message ID:', result.messageId);
+    console.log('📧 Recipients:', result.accepted);
     
     return { success: true, message: 'Confirmation email sent', messageId: result.messageId };
   } catch (error) {
-    console.error('Confirmation email error:', error);
+    console.error('❌ Confirmation email sending error:', error);
+    console.error('❌ Error details:', error.message);
     throw error;
   }
 };

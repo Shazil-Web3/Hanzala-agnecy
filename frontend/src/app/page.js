@@ -10,10 +10,10 @@ import {
   Star
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { ServiceCard } from "@/components/ServiceCard";
+import { Button } from "../components/ui/button";
+import { ServiceCard } from "../components/ServiceCard";
 import { ContactSection } from "../components/ContactSection";
-import { API_ENDPOINTS } from "@/config/api";
+import { API_ENDPOINTS } from "../config/api";
 
 const services = [
   {
@@ -125,9 +125,7 @@ export default function Home() {
   
   
   const handleGetStarted = () => {
-    if (typeof window !== "undefined" && typeof window.scrollToContact === "function") {
-      window.scrollToContact();
-    }
+    window.location.href = "/contact";
   };
 
 

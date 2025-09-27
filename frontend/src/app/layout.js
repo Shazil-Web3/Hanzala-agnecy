@@ -1,11 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import LenisProvider from "@/components/LenisProvider";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import LenisProvider from "../components/LenisProvider";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Toaster } from "sonner";
-import GlobalReviewForm from "@/components/GlobalReviewForm";
+import GlobalReviewForm from "../components/GlobalReviewForm";
 import FbqRouter from "./FbqRouter";
 
 const geistSans = Geist({

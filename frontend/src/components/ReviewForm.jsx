@@ -3,14 +3,14 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { useToast } from "../hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Star, X } from "lucide-react";
-import { API_ENDPOINTS } from "@/config/api";
+import { API_ENDPOINTS } from "../config/api";
 
 const reviewSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
