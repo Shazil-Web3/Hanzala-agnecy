@@ -139,40 +139,104 @@ export default function WebsiteCreation() {
       <div className="orb-6"></div>
       
       {/* Hero Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          {/* Trust Indicators */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="gradient-text">Website Creation</span>
+            <div className="inline-flex items-center space-x-6 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span>500+ Websites Delivered</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span>98% Client Satisfaction</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span>24/7 Support</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Main Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="mb-8"
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight tracking-tight">
+              <span className="gradient-text">
+                Professional Websites
+              </span>
+              <br />
+              <span className="text-3xl md:text-4xl font-medium text-muted-foreground">
+                Built for Your Success
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12">
-              Professional websites that convert visitors into customers. 
-              Built for performance, designed for results.
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-8 leading-relaxed">
+              Transform your business with custom websites that deliver exceptional performance, 
+              stunning design, and measurable results. From concept to launch, we handle everything.
             </p>
           </motion.div>
 
+          {/* Value Propositions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
+          >
+            <div className="glass-card p-6 text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-12 h-12 bg-gradient-primary rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Lightning Fast</h3>
+              <p className="text-sm text-muted-foreground">Optimized for speed and performance across all devices</p>
+            </div>
+            <div className="glass-card p-6 text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-12 h-12 bg-gradient-primary rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <BarChart className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Results Driven</h3>
+              <p className="text-sm text-muted-foreground">Designed to grow your business and engage your audience</p>
+            </div>
+            <div className="glass-card p-6 text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-12 h-12 bg-gradient-primary rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <Shield className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Secure & Reliable</h3>
+              <p className="text-sm text-muted-foreground">Enterprise-grade security and 99.9% uptime guarantee</p>
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button
               onClick={handleContactClick}
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-12 py-6 text-lg font-semibold"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-12 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Start Your Project
+              Get Your Website Quote
             </Button>
+           
           </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4">
+      <section className="py-12 md:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -190,7 +254,7 @@ export default function WebsiteCreation() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -202,13 +266,23 @@ export default function WebsiteCreation() {
                   delay: index * 0.1,
                   ease: "easeOut"
                 }}
-                className="glass-card p-8 text-center group hover:scale-105 transition-transform duration-300"
+                className="glass-card p-4 md:p-8 text-center group hover:scale-105 transition-transform duration-300"
               >
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-2xl mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-8 h-8 text-primary-foreground" />
+                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-primary rounded-2xl mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  <span className="md:hidden">
+                    {feature.title === "Custom Design" && "Unique, branded websites"}
+                    {feature.title === "Mobile First" && "Fully responsive designs"}
+                    {feature.title === "SEO Optimized" && "Built-in SEO best practices"}
+                    {feature.title === "Custom Admin Panel" && "User-friendly admin panel"}
+                    {feature.title === "Fast Loading" && "Optimized for speed"}
+                    {feature.title === "Secure & Reliable" && "Built with security in mind"}
+                  </span>
+                  <span className="hidden md:inline">{feature.description}</span>
+                </p>
               </motion.div>
             ))}
           </div>
@@ -216,7 +290,7 @@ export default function WebsiteCreation() {
       </section>
 
       {/* Pricing Plans */}
-      <section className="py-24 px-4">
+      <section className="py-12 md:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -295,7 +369,7 @@ export default function WebsiteCreation() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 px-4">
+      <section className="py-12 md:py-24 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
