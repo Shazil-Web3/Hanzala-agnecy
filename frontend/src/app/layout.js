@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
 import LenisProvider from "../components/LenisProvider";
 import Navbar from "../components/Navbar";
@@ -63,7 +64,9 @@ export default function RootLayout({ children }) {
             alt="" 
           />
         </noscript>
-        <FbqRouter />
+        <Suspense fallback={null}>
+          <FbqRouter />
+        </Suspense>
         <LenisProvider>
           <Navbar />
           <main className="min-h-screen">
