@@ -250,7 +250,7 @@ export async function POST(request) {
     // 3. Send Full Lead Information Email to Agency Owner (Admin)
     let adminEmailStatus = false;
     try {
-      const adminRecipients = ['shazilsaddique86@gmail.com'];
+      const adminRecipients = [process.env.ADMIN_EMAIL_1 || 'hanzwellagency@gmail.com'];
 
       const adminEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency Leads <onboarding@resend.dev>',
