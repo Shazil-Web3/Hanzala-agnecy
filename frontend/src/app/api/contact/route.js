@@ -1,8 +1,8 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { supabase } from '../../../lib/supabase';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getSupabaseClient } from '../../../lib/supabase';
 
 const ADMIN_EMAILS = [
   process.env.ADMIN_EMAIL_1 || 'hanzwellagency@gmail.com',
@@ -228,6 +228,9 @@ export async function POST(request) {
     };
 
     // 2. Insert into Supabase Database
+    const supabase = getSupabaseClient();
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const { data: savedLead, error: dbError } = await supabase
       .from('leads')
       .insert([leadData])
