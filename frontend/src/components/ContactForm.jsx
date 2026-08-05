@@ -9,6 +9,7 @@ import { Textarea } from "./ui/textarea";
 import { useToast } from "../hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { API_ENDPOINTS } from "../config/api";
 import { ChevronDown, Check } from "lucide-react";
 
@@ -32,6 +33,7 @@ const serviceOptions = [
 const placeholderOption = { value: "", label: "Choose an option" };
 
 export const ContactForm = () => {
+  const router = useRouter();
   const { toast } = useToast();
   const [showSuccess, setShowSuccess] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
@@ -86,23 +88,11 @@ export const ContactForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Show success notification
-        setShowSuccess(true);
-        
-        // Hide success notification after 10 seconds
-        setTimeout(() => {
-          setShowSuccess(false);
-        }, 10000);
-
-        toast({
-          title: "Message sent successfully!",
-          description: result.message,
-          duration: 5000,
-        });
-
         reset();
-        setSelectedService(placeholderOption); // Reset to "Choose an option"
+        setSelectedService(placeholderOption);
         setIsServiceDropdownOpen(false);
+        // Redirect user to the dedicated Thank You page
+        router.push('/thank-you');
       } else {
         throw new Error(result.message || 'Failed to send message');
       }
