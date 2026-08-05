@@ -5,8 +5,8 @@ import { Resend } from 'resend';
 import { getSupabaseClient } from '../../../lib/supabase';
 
 const ADMIN_EMAILS = [
-  process.env.ADMIN_EMAIL_1 || 'hanzwellagency@gmail.com',
-  process.env.ADMIN_EMAIL_2 || 'shazilsaddique72@gmail.com'
+  process.env.ADMIN_EMAIL_1 || 'shazilsaddique86@gmail.com',
+  process.env.ADMIN_EMAIL_2
 ].filter(Boolean);
 
 const formatServiceName = (service) => {
@@ -250,9 +250,10 @@ export async function POST(request) {
     // 3. Send Email 1 & 2: Notification to Admin Emails
     let adminEmailStatus = false;
     try {
+      const recipientEmails = ADMIN_EMAILS.length > 0 ? ADMIN_EMAILS : ['shazilsaddique86@gmail.com'];
       const adminEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency Leads <onboarding@resend.dev>',
-        to: ADMIN_EMAILS,
+        to: recipientEmails,
         replyTo: leadData.email,
         subject: `🔥 New Lead: ${leadData.name} - ${formatServiceName(leadData.service)}`,
         html: getAdminEmailHTML(leadData)
@@ -266,9 +267,11 @@ export async function POST(request) {
     // 4. Send Email 3: Thank-you Confirmation to Customer
     let userEmailStatus = false;
     try {
+      // On Resend free onboarding domain, send to verified account email if custom domain is not yet active
+      const userRecipient = process.env.ADMIN_EMAIL_1 || 'shazilsaddique86@gmail.com';
       const userEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency <onboarding@resend.dev>',
-        to: [leadData.email],
+        to: [userRecipient],
         replyTo: 'hanzwellagency@gmail.com',
         subject: `Thank you for contacting Hanzwell Agency, ${leadData.name}!`,
         html: getCustomerEmailHTML(leadData)
