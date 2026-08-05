@@ -247,36 +247,38 @@ export async function POST(request) {
 
     console.log('✅ Lead saved to Supabase:', savedLead.id);
 
-    // 3. Send Email 1 & 2: Notification to Admin Emails
+    // 3. Send Email 1: Full Lead Information to Agency Owner (Admin)
     let adminEmailStatus = false;
     try {
-      const recipientEmails = ADMIN_EMAILS.length > 0 ? ADMIN_EMAILS : ['shazilsaddique86@gmail.com'];
+      const adminRecipients = [
+        process.env.ADMIN_EMAIL_1 || 'shazilsaddique86@gmail.com',
+        process.env.ADMIN_EMAIL_2 || 'hanzwellagency@gmail.com'
+      ].filter(Boolean);
+
       const adminEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency Leads <onboarding@resend.dev>',
-        to: recipientEmails,
+        to: adminRecipients,
         replyTo: leadData.email,
-        subject: `🔥 New Lead: ${leadData.name} - ${formatServiceName(leadData.service)}`,
+        subject: `🔥 New Lead Received: ${leadData.name} - ${formatServiceName(leadData.service)}`,
         html: getAdminEmailHTML(leadData)
       });
-      console.log('✅ Admin Notification Sent:', adminEmailResponse);
+      console.log('✅ Admin Lead Info Email Sent:', adminEmailResponse);
       adminEmailStatus = true;
     } catch (emailErr) {
-      console.error('❌ Admin Email Error:', emailErr);
+      console.error('❌ Admin Lead Info Email Error:', emailErr);
     }
 
-    // 4. Send Email 3: Thank-you Confirmation to Customer
+    // 4. Send Email 2: Thank-you Confirmation to the Customer (email typed in form)
     let userEmailStatus = false;
     try {
-      // On Resend free onboarding domain, send to verified account email if custom domain is not yet active
-      const userRecipient = process.env.ADMIN_EMAIL_1 || 'shazilsaddique86@gmail.com';
       const userEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency <onboarding@resend.dev>',
-        to: [userRecipient],
+        to: [leadData.email], // Email typed by the user in the form
         replyTo: 'hanzwellagency@gmail.com',
         subject: `Thank you for contacting Hanzwell Agency, ${leadData.name}!`,
         html: getCustomerEmailHTML(leadData)
       });
-      console.log('✅ Customer Confirmation Sent:', userEmailResponse);
+      console.log('✅ Customer Confirmation Sent to', leadData.email, ':', userEmailResponse);
       userEmailStatus = true;
     } catch (emailErr) {
       console.error('❌ Customer Confirmation Email Error:', emailErr);
