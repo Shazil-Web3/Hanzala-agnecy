@@ -247,7 +247,7 @@ export async function POST(request) {
 
     console.log('✅ Lead saved to Supabase:', savedLead.id);
 
-    // 3. Send Email 1: Full Lead Information to Agency Owner (Admin)
+    // 3. Send Full Lead Information Email to Agency Owner (Admin)
     let adminEmailStatus = false;
     try {
       const adminRecipients = [
@@ -268,30 +268,11 @@ export async function POST(request) {
       console.error('❌ Admin Lead Info Email Error:', emailErr);
     }
 
-    // 4. Send Email 2: Thank-you Confirmation to the Customer (email typed in form)
-    let userEmailStatus = false;
-    try {
-      const userEmailResponse = await resend.emails.send({
-        from: 'Hanzwell Agency <onboarding@resend.dev>',
-        to: [leadData.email], // Email typed by the user in the form
-        replyTo: 'hanzwellagency@gmail.com',
-        subject: `Thank you for contacting Hanzwell Agency, ${leadData.name}!`,
-        html: getCustomerEmailHTML(leadData)
-      });
-      console.log('✅ Customer Confirmation Sent to', leadData.email, ':', userEmailResponse);
-      userEmailStatus = true;
-    } catch (emailErr) {
-      console.error('❌ Customer Confirmation Email Error:', emailErr);
-    }
-
     return NextResponse.json({
       success: true,
       message: 'Thank you! Your message has been sent successfully. We will get back to you within 24 hours.',
       leadId: savedLead.id,
-      emailsSent: {
-        admin: adminEmailStatus,
-        user: userEmailStatus
-      }
+      emailSent: adminEmailStatus
     });
 
   } catch (error) {
