@@ -250,10 +250,7 @@ export async function POST(request) {
     // 3. Send Full Lead Information Email to Agency Owner (Admin)
     let adminEmailStatus = false;
     try {
-      const adminRecipients = [
-        process.env.ADMIN_EMAIL_1 || 'shazilsaddique86@gmail.com',
-        process.env.ADMIN_EMAIL_2 || 'hanzwellagency@gmail.com'
-      ].filter(Boolean);
+      const adminRecipients = ['shazilsaddique86@gmail.com'];
 
       const adminEmailResponse = await resend.emails.send({
         from: 'Hanzwell Agency Leads <onboarding@resend.dev>',
